@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { botName, prefix, token } = require('./config.json');
 const fs = require('fs');
+const db = require('./database/models');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -14,8 +15,17 @@ for (const file of commandFiles) {
 }
 
 // Bot startup.
-client.once('ready', () => {
+client.once('ready', async () => {
   console.log(`${botName} is online!`);
+  try {
+    const server = await db.Server.findOne();
+
+    const output = (await server.getSettings());
+
+    console.log(output);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // New member joining

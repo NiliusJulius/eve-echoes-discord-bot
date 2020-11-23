@@ -4,11 +4,26 @@
   "description": "A discord bot used for eve echoes servers.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:dev": "sequelize db:seed:all",
+    "seed:test": "sequelize db:seed:all --seeders-path ./database/seeders/test",
+    "seed": "npm run seed:dev && npm run seed:test",
+    "seed:dev:undo": "sequelize db:seed:undo:all",
+    "seed:test:undo": "sequelize db:seed:undo:all --seeders-path ./database/seeders/test",
+    "seed:undo": "npm run seed:dev:undo && npm run seed:test:undo",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo:all",
+    "sync": "node ./dbInit.js --force",
+    "drop": "node ./dbDrop.js"
   },
   "author": "Niels van Houten",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.4.1"
+    "discord.js": "^12.4.1",
+    "dotenv": "^8.2.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5"
   }
 }
