@@ -1,4 +1,4 @@
-const db = require('./database/models');
+const db = require('./models');
 
 db.sequelize.drop().then(() => {
   console.log('Database tables dropped');

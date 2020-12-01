@@ -2,28 +2,49 @@
   "name": "eve-echoes-discord-bot",
   "version": "0.0.1",
   "description": "A discord bot used for eve echoes servers.",
-  "main": "index.js",
-  "scripts": {
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "seed:dev": "sequelize db:seed:all",
-    "seed:test": "sequelize db:seed:all --seeders-path ./database/seeders/test",
-    "seed": "npm run seed:dev && npm run seed:test",
-    "seed:dev:undo": "sequelize db:seed:undo:all",
-    "seed:test:undo": "sequelize db:seed:undo:all --seeders-path ./database/seeders/test",
-    "seed:undo": "npm run seed:dev:undo && npm run seed:test:undo",
-    "migrate": "sequelize db:migrate",
-    "migrate:undo": "sequelize db:migrate:undo:all",
-    "sync": "node ./dbInit.js --force",
-    "drop": "node ./dbDrop.js"
-  },
   "author": "Niels van Houten",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NiliusJulius/eve-echoes-discord-bot.git"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node .",
+    "pretest": "npm run migrate:test && npm run seed:test",
+    "test": "cross-env NODE_ENV=test jest --runInBand",
+    "seed:dev": "cross-env NODE_ENV=development node ./src/database/seed",
+    "seed:test": "cross-env NODE_ENV=test node ./src/database/seed",
+    "seed:dev:undo": "cross-env NODE_ENV=development node ./src/database/seed -- undo",
+    "seed:test:undo": "cross-env NODE_ENV=test node ./src/database/seed -- undo",
+    "migrate:dev": "cross-env NODE_ENV=development node ./src/database/migrate",
+    "migrate:test": "cross-env NODE_ENV=test node ./src/database/migrate",
+    "migrate:dev:undo": "cross-env NODE_ENV=development node ./src/database/migrate -- undo",
+    "migrate:test:undo": "cross-env NODE_ENV=test node ./src/database/migrate -- undo",
+    "sync": "node ./src/database/dbInit.js --force",
+    "drop": "node ./src/database/dbDrop.js"
+  },
+  "jest": {
+    "testRegex": "test.js$",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!coverage/**",
+      "!src/database/**",
+      "src/database/models/**"
+    ]
+  },
   "dependencies": {
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "child-process-promise": "^2.2.1",
+    "cross-env": "^7.0.2",
+    "faker": "^5.1.0",
+    "jest": "^26.6.3",
+    "sequelize-cli": "^6.2.0"
   }
 }

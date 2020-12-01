@@ -1,4 +1,4 @@
-const db = require('./database/models');
+const db = require('./models');
 
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 
