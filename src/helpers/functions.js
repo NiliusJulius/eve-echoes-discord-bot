@@ -1,3 +1,19 @@
+const Discord = require('discord.js');
+const fs = require('fs');
+const path = require('path');
+
+/* istanbul ignore next */
+function readCommands(client) {
+  client.commands = new Discord.Collection();
+  // Read all command files.
+  const commandFiles = fs.readdirSync(path.resolve(__dirname, '../commands/')).filter(file => file.endsWith('.js'));
+  for (const file of commandFiles) {
+    const command = require(`../commands/${file}`);
+    client.commands.set(command.name.toLowerCase(), command);
+  }
+}
+exports.readCommands = readCommands;
+
 function getUserFromMention(mention, client) {
   // The id is the first and only match found by the RegEx.
   const matches = mention.match(/^<@!?(\d+)>$/);
@@ -11,5 +27,4 @@ function getUserFromMention(mention, client) {
 
   return client.users.cache.get(id);
 }
-
 exports.getUserFromMention = getUserFromMention;

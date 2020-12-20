@@ -12,7 +12,6 @@ beforeEach(async () => {
 
 describe('Test', () => {
   test('should output server name', () => {
-    console.log(server.name);
     expect(1).toBe(1);
   });
 });

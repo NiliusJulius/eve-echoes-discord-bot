@@ -1,0 +1,21 @@
+{
+  "cannotExecuteInDMs": "I can't execute that command inside DMs!",
+  "helpCommand.commandAliases": "**Aliases:** {{0}}",
+  "helpCommand.commandCooldown": "**Cooldown:** {{0}} second(s)",
+  "helpCommand.commandDescription": "**Description:** {{0}}",
+  "helpCommand.commandName": "**Name:** {{0}}",
+  "helpCommand.commandUsage": "**Usage:** {{0}}{{1}} {{2}}",
+  "helpCommand.description": "List all of my commands or info about a specific command.",
+  "helpCommand.dmFailure": "it seems like I can't DM you! Do you have DMs disabled?",
+  "helpCommand.dmFailureConsole": "Could not send help DM to {{0}}.\n",
+  "helpCommand.listAllCommands": "Here's a list of all my commands:",
+  "helpCommand.listAllCommands2": "\nYou can send '{{0}}help [command name]' to get info on a specific command!",
+  "helpCommand.notValidCommand": "that's not a valid command!",
+  "helpCommand.tellDMWithCommandsSent": "I've sent you a DM with all my commands!",
+  "helpCommand.usage": "[command name]",
+  "reloadCommand.description": "Reloads a command.",
+  "reloadCommand.errorReloading": "There was an error while reloading a command '{{0}}':\n'{{1}}'",
+  "reloadCommand.notFound": "There is no command with name or alias '{{0}}', {{1}}!",
+  "reloadCommand.reloaded": "Command '{{0}}' was reloaded!",
+  "reloadCommand.usage": "<command to reload>"
+}

@@ -22,16 +22,21 @@
     "migrate:dev:undo": "cross-env NODE_ENV=development node ./src/database/migrate -- undo",
     "migrate:test:undo": "cross-env NODE_ENV=test node ./src/database/migrate -- undo",
     "sync": "node ./src/database/dbInit.js --force",
-    "drop": "node ./src/database/dbDrop.js"
+    "drop": "node ./src/database/dbDrop.js",
+    "coverage": "jest --coverage"
   },
   "jest": {
     "testRegex": "test.js$",
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!coverage/**",
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
       "!src/database/**",
       "src/database/models/**"
-    ]
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/test"
+    ],
+    "testEnvironment": "node"
   },
   "dependencies": {
     "discord.js": "^12.4.1",
