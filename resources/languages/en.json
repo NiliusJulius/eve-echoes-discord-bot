@@ -1,5 +1,9 @@
 {
-  "cannotExecuteInDMs": "I can't execute that command inside DMs!",
+  "clientEventHandler.cannotExecuteInDMs": "I can't execute that command inside DMs!",
+  "clientEventHandler.errorExecutingCommand": "There was an error trying to execute that command.",
+  "clientEventHandler.incorrectArguments": "You didn't provide the correct argument(s), {{0}}!",
+  "clientEventHandler.onCooldown": "Please wait {{0}} more second(s) before reusing the '{{1}}' command.",
+  "clientEventHandler.properUsage": "\nThe proper usage would be: '{{0}}{{1}} {{2}}'",
   "helpCommand.commandAliases": "**Aliases:** {{0}}",
   "helpCommand.commandCooldown": "**Cooldown:** {{0}} second(s)",
   "helpCommand.commandDescription": "**Description:** {{0}}",

@@ -4,4 +4,5 @@ module.exports = {
     PREFIX: -1,
     ROLE: -2,
   },
+  cooldown: 3,
 };

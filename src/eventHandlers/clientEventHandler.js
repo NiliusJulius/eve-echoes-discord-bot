@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { getMessage } = require('../caches/languageCache');
 const { botName, prefix } = require('../config.json');
+const { cooldown } = require('../helpers/constants');
 
 function handleOnceReady() {
   console.log(`${botName} is online!`);
@@ -23,15 +24,15 @@ function handleOnMessage(message, client, cooldowns) {
 
   // Server only commands in DMs.
   if (command.guildOnly && message.channel.type === 'dm') {
-    return message.reply(getMessage('cannotExecuteInDMs'));
+    return message.reply(getMessage('clientEventHandler.cannotExecuteInDMs'));
   }
 
-  // If the command requires arguments but did not receive any, or did not reive the correct amount of arguments.
+  // If the command requires arguments but did not receive any, or did not receive the correct amount of arguments.
   if (command.args && (!args.length || (command.argsLength && args.length != command.argsLength))) {
-    let reply = `You didn't provide the correct argument(s), ${message.author}!`;
+    let reply = getMessage('clientEventHandler.incorrectArguments', undefined, [message.author]);
 
     if (command.usage) {
-      reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+      reply += getMessage('clientEventHandler.properUsage', undefined, [prefix, command.name, command.usage]);
     }
 
     return message.channel.send(reply);
@@ -43,7 +44,7 @@ function handleOnMessage(message, client, cooldowns) {
   }
   const now = Date.now();
   const timestamps = cooldowns.get(command.name);
-  const cooldownAmount = (command.cooldown || 3) * 1000;
+  const cooldownAmount = (command.cooldown || cooldown) * 1000;
 
   // If there is a cooldown on this command from the person trying to call it, return a message.
   if (timestamps.has(message.author.id)) {
@@ -51,20 +52,20 @@ function handleOnMessage(message, client, cooldowns) {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      return message.reply(getMessage('clientEventHandler.onCooldown', undefined, [timeLeft.toFixed(1), command.name]));
     }
   }
 
   // Let the cooldown start for this user.
   timestamps.set(message.author.id, now);
-  // setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
   // Execute the command.
   try {
     command.execute(message, args);
   } catch (error) {
     console.error(error);
-    message.reply('There was an error trying to execute that command.');
+    message.reply(getMessage('clientEventHandler.errorExecutingCommand'));
   }
 }
 exports.handleOnMessage = handleOnMessage;

@@ -23,6 +23,7 @@ describe('should test all commands', () => {
 
 describe('Test', () => {
   test('should output server name', () => {
+    jest.useFakeTimers();
     expect(1).toBe(1);
   });
 });
